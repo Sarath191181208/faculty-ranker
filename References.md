@@ -1,0 +1,1 @@
+- [Firebase rules for read for only a domaini](https://stackoverflow.com/questions/45494915/can-you-only-allow-users-with-a-specific-email-address-to-sign-up-and-use-your-a)
