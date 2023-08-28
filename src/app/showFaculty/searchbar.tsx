@@ -6,7 +6,7 @@ export function SearchBar({
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div className={"max-w-md mx-auto " + className}>
+    <div className={"max-w-md " + className}>
       <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-slate-700 overflow-hidden">
         <div className="grid place-items-center h-full w-12 text-gray-300">
           <svg
