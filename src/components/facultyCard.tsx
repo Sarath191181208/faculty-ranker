@@ -11,7 +11,7 @@ export default function FacultyCard(props: {
   return (
     <>
       {/* <div className="flex flex-row rounded-lg shadow-lg bg-white"> */}
-      <div className="flex flex-row rounded-lg shadow-lg bg-neutral-900">
+      <div className="flex flex-row rounded-lg shadow-lg bg-slate-800">
         <div className="w-1/3">
           <Image
             src={faculty.image_url}

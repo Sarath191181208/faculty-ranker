@@ -126,7 +126,7 @@ function FacultyFilterSearchBar() {
     <div className="relative">
       <SearchBar className="mb-5" onChange={filterSearchData} />
       <div className={"absolute w-full top-[100%] mt-1 " + ((filteredData.length > 0) ? " " : "collapse")}>
-        <div className="max-w-md mx-auto z-10 h-40 rounded-sm overflow-y-scroll overflow-x-hidden bg-neutral-600">
+        <div className="max-w-md mx-auto z-10 h-40 rounded-sm overflow-y-scroll overflow-x-hidden bg-slate-600">
           {filteredData.map((faculty) => (
             <Link
               key={faculty.id}
@@ -138,7 +138,7 @@ function FacultyFilterSearchBar() {
               }}
             >
             {/* show image and faculty name the image is super small */}
-              <div className="flex flex-row items-center gap-2 p-2 hover:bg-neutral-700 cursor-pointer">
+              <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-700 cursor-pointer">
                 <Image src={faculty.image_url} width={30} height={30} alt={faculty.name} />
                 <p className="text-sm text-gray-300">{faculty.name}</p>
               </div>

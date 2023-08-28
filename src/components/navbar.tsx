@@ -28,19 +28,19 @@ export const Navbar = () => {
   };
 
   // create a responsive nav bar with profile image if logged in else login button
-  // the nav bar must contain home button, faculty button, search bar 
+  // the nav bar must contain home button, faculty button, search bar
   // the nav bar must be responsive
-  
+
   return (
-    <div className="flex flex-row justify-between items-center bg-zinc-950 p-5">
+    <div className="flex flex-row justify-between items-center bg-black/20 p-3">
       <div className="flex flex-row gap-4 items-center">
         {/* showing the image  */}
         {user ? (
           <Image
             src={user.photoURL ?? ""}
             alt={user.displayName ?? ""}
-            width={50}
-            height={50}
+            width={30}
+            height={30}
             className="rounded-full"
           />
         ) : (
@@ -57,14 +57,14 @@ export const Navbar = () => {
         {/* showing the login button */}
         {user ? (
           <button
-            className="border-red-500 border-2 text-xs hover:bg-red-600/40 text-white font-bold py-2 px-4 rounded"
+            className="border-slate-500 border-2 text-xs transition hover:bg-slate-600/40 text-white font-bold py-2 px-4 rounded-full"
             onClick={handleSignOut}
           >
             Sign Out
           </button>
         ) : (
           <button
-            className="border-green-400 border-2 m-2 text-xs transition hover:bg-green-600/40 text-white font-bold py-2 px-4 rounded-md"
+            className="border-slate-400 border-2 text-xs transition hover:bg-slate-600/40 text-white font-bold py-2 px-4 rounded-full"
             onClick={handleSignIn}
           >
             Sign In
@@ -73,5 +73,4 @@ export const Navbar = () => {
       </div>
     </div>
   );
-
 };

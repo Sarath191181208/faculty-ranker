@@ -7,7 +7,7 @@ export function SearchBar({
 }) {
   return (
     <div className={"max-w-md mx-auto " + className}>
-      <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-neutral-900 overflow-hidden">
+      <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-slate-700 overflow-hidden">
         <div className="grid place-items-center h-full w-12 text-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ export function SearchBar({
         </div>
 
         <input
-          className="peer h-full w-full outline-none bg-neutral-800 text-sm text-gray-700 px-2"
+          className="peer h-full w-full outline-none bg-slate-800 text-sm text-gray-700 px-2"
           type="text"
           id="search"
           onChange={onChange}
