@@ -53,14 +53,14 @@ function CardAnimationComponent({ className = "" }) {
       <div className="absolute opacity-20 border-white w-44 rounded-md aspect-[5/7] bg-slate-500 translate-x-[6%] rotate-3"></div>
       <div className="absolute opacity-20 border-white w-44 rounded-md aspect-[5/7] bg-slate-500 rotate-2"></div>
       <div className="absolute opacity-20 border-white w-44 rounded-md aspect-[5/7] bg-slate-500 translate-x-[10%]  rotate-1"></div>
-      <div className="absolute p-8 card-animation-replace-card grid grid-cols-5 items-center border-white w-44 rounded-md aspect-[5/7] bg-slate-500 ">
+      {/* <div className="absolute p-8 card-animation-replace-card grid grid-cols-5 items-center border-white w-44 rounded-md aspect-[5/7] bg-slate-500 ">
         <span className="text-center change-color-animation"> ★ </span>
         <span className="text-center change-color-animation"> ★ </span>
         <span className="text-center change-color-animation"> ★ </span>
         <span className="text-center change-color-animation"> ★ </span>
         <span className="text-center change-color-animation"> ★ </span>
-      </div>
-      <div className="absolute grid p-5 grid-cols-5 items-end border-white w-44 rounded-md aspect-[5/7] bg-slate-500">
+      </div> */}
+      <div className="absolute grid p-5 grid-cols-5 items-end border-white w-44 rounded-md aspect-[5/7] bg-slate-500 translate-x-[10%] -rotate-1">
         <span className="text-center z-10 change-color-animation mb-5">
           {" "}
           ★{" "}
