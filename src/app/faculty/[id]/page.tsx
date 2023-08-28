@@ -11,6 +11,7 @@ import { writeFacultyRating } from "@/firebase/starRating";
 import Image from "next/image";
 import BsChevronLeft from "../leftIcon";
 import AiOutlineQuestionCircle from "../questionIcon";
+import { getFacultyDetails } from "@/firebase/getFacultyDetails";
 
 type FacultyDataWithPartitionNumber = FacultyData & { partitionNumber: number };
 
@@ -19,17 +20,23 @@ function parseSearchParams(
 ): FacultyDataWithPartitionNumber {
   const partitionNumber: number = (searchParams.get("partition_number") ??
     "0") as unknown as number;
-  const attendance_rating: number = (searchParams.get("attendance_rating") ??
-    "0") as unknown as number;
-  const correction_rating: number = (searchParams.get("correction_rating") ??
-    "0") as unknown as number;
-  const teaching_rating: number = (searchParams.get("teaching_rating") ??
-    "0") as unknown as number;
 
-  const id = searchParams.get("id") ?? "unknown";
+  const attendance_rating: number | null = searchParams.get(
+    "attendance_rating"
+  ) as unknown as number | null;
+  const correction_rating: number | null = searchParams.get(
+    "correction_rating"
+  ) as unknown as number | null;
+  const teaching_rating: number | null = searchParams.get(
+    "teaching_rating"
+  ) as unknown as number | null;
+
+  const id = searchParams.get("id");
   const name = searchParams.get("name") ?? "unknown";
   const image_url = searchParams.get("image_url") ?? "unknown";
   const specialization = searchParams.get("specialization") ?? "unknown";
+
+  if (id == null) throw new Error("id is null");
 
   const num_teaching_ratings: number = (searchParams.get(
     "num_teaching_ratings"
@@ -62,6 +69,8 @@ export default function SingleFacultyPage({
   params: { id: string };
 }) {
   const searchParams = useSearchParams();
+  const [facultyData, setFacultyData] =
+    useState<FacultyDataWithPartitionNumber>(parseSearchParams(searchParams));
   const {
     partitionNumber,
     image_url,
@@ -70,7 +79,7 @@ export default function SingleFacultyPage({
     correction_rating,
     teaching_rating,
     name,
-  }: FacultyDataWithPartitionNumber = parseSearchParams(searchParams);
+  }: FacultyDataWithPartitionNumber = facultyData;
 
   const { user }: { user: User } = useAuth();
 
@@ -97,7 +106,7 @@ export default function SingleFacultyPage({
       previousRatings.teaching_rating != null
     )
       return;
-    const queryString = `${user.uid}-${partitionNumber}-${params.id}`;
+    const queryString = `${user.uid}-${facultyData.partitionNumber}-${params.id}`;
     const ratingRef = doc(db, "ratings", queryString);
     const getRating = async () => {
       const ratingDoc = await getDoc(ratingRef);
@@ -108,7 +117,40 @@ export default function SingleFacultyPage({
       }
     };
     getRating();
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    const fetchFacultyDetails = async () => {
+      // if (user == null) return; 
+      if (
+        attendance_rating == null ||
+        correction_rating == null ||
+        teaching_rating == null
+      ) {
+        const doc = await getFacultyDetails(partitionNumber);
+        // update all the search params
+        const faculty = doc.find((faculty) => faculty.id === params.id);
+        if (faculty == null) return;
+        setFacultyData((prev) => ({
+          ...prev,
+          image_url: faculty.image_url,
+          specialization: faculty.specialization,
+          name: faculty.name,
+          attendance_rating: faculty.attendance_rating,
+          correction_rating: faculty.correction_rating,
+          teaching_rating: faculty.teaching_rating,
+        }));
+      }
+    };
+    if (
+      attendance_rating == null &&
+      correction_rating == null &&
+      teaching_rating == null
+    )
+      fetchFacultyDetails();
+  }, [user]);
+
+  console.log({ attendance_rating, correction_rating, teaching_rating });
 
   return (
     <div className="p-1">

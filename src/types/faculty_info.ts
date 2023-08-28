@@ -23,3 +23,5 @@ interface FacultyRatingCount{
 }
 
 type FacultyData = Faculty & FacultyRating & FacultyRatingCount;
+type FacultyQueryData = Faculty & { partition_number: number };
+
