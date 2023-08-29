@@ -29,7 +29,7 @@ export default function RootLayout({
               </a>
               <div>
                 <a
-                  href="vssarathc04@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&to=vssarathc04@gmail.com"
                   className="text-blue-500 hover:text-blue-300"
                 >
                   Contact us
