@@ -81,7 +81,10 @@ export default function SingleFacultyPage({
     name,
   }: FacultyDataWithPartitionNumber = facultyData;
 
-  const { user }: { user: User } = useAuth();
+  const {
+    user,
+    signInWithGoogle,
+  }: { user: User; signInWithGoogle: () => Promise<void> } = useAuth();
 
   const [givenRatings, setGivenRatings] = useState<FacultyRatingWithoutId>({
     attendance_rating: null,
@@ -121,7 +124,7 @@ export default function SingleFacultyPage({
 
   useEffect(() => {
     const fetchFacultyDetails = async () => {
-      // if (user == null) return; 
+      if (user == null) return;
       if (
         attendance_rating == null ||
         correction_rating == null ||
@@ -149,8 +152,6 @@ export default function SingleFacultyPage({
     )
       fetchFacultyDetails();
   }, [user]);
-
-  console.log({ attendance_rating, correction_rating, teaching_rating });
 
   return (
     <div className="p-1">
@@ -274,7 +275,17 @@ export default function SingleFacultyPage({
             className="btn btn-primary bg-slate-50 hover:bg-slate-100 text-black p-2 rounded-md mt-4"
             onClick={async () => {
               setIsWritingData(true);
-              console.log("submitting rating");
+
+              if (user == null) {
+                try {
+                  await signInWithGoogle();
+                } catch (error) {
+                  const err: Error = error as Error;
+                  console.error(err);
+                  alert("You must sign in to rate");
+                  return;
+                }
+              }
               const queryString = `${user.uid}-${partitionNumber}-${params.id}`;
               try {
                 await writeFacultyRating(
@@ -286,7 +297,14 @@ export default function SingleFacultyPage({
                 );
                 setPreviousRatings({ ...givenRatings });
               } catch (error) {
-                console.log(error);
+                const err = error as Error & { code: string };
+                if (err.code === "permission-denied") {
+                  const alertString =
+                    user == null
+                      ? "You need to sign in to rate"
+                      : "You must sign in through your college email to rate";
+                  alert(alertString);
+                }
               } finally {
                 setIsWritingData(false);
               }
