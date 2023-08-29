@@ -119,6 +119,10 @@ export default function SingleFacultyPage({
     });
 
   const [isWritingData, setIsWritingData] = useState(false);
+  const isDataAlreadyWritten =
+    previousRatings.attendance_rating != null ||
+    previousRatings.correction_rating != null ||
+    previousRatings.teaching_rating != null;
 
   useEffect(() => {
     if (user == null) return;
@@ -360,7 +364,7 @@ export default function SingleFacultyPage({
             {isWritingData ? (
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
             ) : (
-              "Submit"
+              isDataAlreadyWritten ? "Update" : "Submit"
             )}
           </button>
         </div>
