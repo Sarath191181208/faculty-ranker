@@ -1,6 +1,7 @@
 "use client";
 
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import { AuthContextProvider } from "../context/AuthContext";
 import { Navbar } from "../components/navbar";
 
@@ -17,6 +18,7 @@ export default function RootLayout({
           <Navbar />
           {children}
         </AuthContextProvider>
+        <Analytics />
         <footer className="bg-gray-800 py-6">
           <div className="container mx-auto text-center text-white">
             <div className="mb-4 flex justify-center">
