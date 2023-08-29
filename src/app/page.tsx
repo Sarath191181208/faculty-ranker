@@ -61,23 +61,23 @@ function CardAnimationComponent({ className = "" }) {
         <span className="text-center change-color-animation"> ★ </span>
       </div> */}
       <div className="absolute grid p-5 grid-cols-5 items-end border-white w-44 rounded-md aspect-[5/7] bg-slate-500 translate-x-[10%] -rotate-1">
-        <span className="text-center z-10 change-color-animation mb-5">
+        <span className="text-center z-10 text-yellow-400 mb-5">
           {" "}
           ★{" "}
         </span>
-        <span className="text-center z-10 change-color-animation mb-5">
+        <span className="text-center z-10 text-yellow-400 mb-5">
           {" "}
           ★{" "}
         </span>
-        <span className="text-center z-10 change-color-animation mb-5">
+        <span className="text-center z-10 text-yellow-400 mb-5">
           {" "}
           ★{" "}
         </span>
-        <span className="text-center z-10 change-color-animation mb-5">
+        <span className="text-center z-10 text-yellow-400 mb-5">
           {" "}
           ★{" "}
         </span>
-        <span className="text-center z-10 change-color-animation mb-5">
+        <span className="text-center z-10 mb-5">
           {" "}
           ★{" "}
         </span>
