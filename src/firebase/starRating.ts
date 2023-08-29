@@ -1,7 +1,5 @@
 import {
   doc,
-  setDoc,
-  updateDoc,
   increment,
   runTransaction,
 } from "firebase/firestore";
