@@ -17,6 +17,30 @@ export default function RootLayout({
           <Navbar />
           {children}
         </AuthContextProvider>
+        <footer className="bg-gray-800 py-6">
+          <div className="container mx-auto text-center text-white">
+            <div className="mb-4 flex justify-center">
+              <a
+                href="https://github.com/Sarath191181208/faculty-ranker"
+                target="_blank"
+                className="text-blue-500 hover:text-blue-300 mr-10"
+              >
+                GitHub
+              </a>
+              <div>
+                <a
+                  href="vssarathc04@gmail.com"
+                  className="text-blue-500 hover:text-blue-300"
+                >
+                  Contact us
+                </a>
+              </div>
+            </div>
+            <div className="mb-4">
+              &copy; 2023 Faculty Ranker. All rights reserved.
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
     // </AuthContextProvider>

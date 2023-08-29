@@ -272,7 +272,7 @@ export default function SingleFacultyPage({
 
           <button
             disabled={isWritingData}
-            className="btn btn-primary bg-slate-50 hover:bg-slate-100 text-black p-2 rounded-md mt-4"
+            className="btn btn-primary bg-slate-50 hover:bg-slate-100 text-black p-2 rounded-md mt-4 mb-8"
             onClick={async () => {
               setIsWritingData(true);
 
