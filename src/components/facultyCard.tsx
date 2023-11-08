@@ -13,7 +13,7 @@ export default function FacultyCard(props: {
       <div className="flex flex-row p-1 ">
         <div className="w-1/3">
           <Image
-            src={faculty.image_url+"lsdk"}
+            src={faculty.image_url}
             alt={faculty.name}
             width={150}
             height={150}
