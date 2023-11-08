@@ -67,30 +67,30 @@ export default function RenderFacultyGrid() {
         </p>
       </div>
 
-      <FacultyFilterSearchBar className="mt-3 xl:mt-0"/>
+      <FacultyFilterSearchBar className="mt-3 xl:mt-0" />
       {/* Faculty display grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {loading
-          ? [...Array(9)].map((_, index) => (
-              <LoadingCardComponent key={index} />
-            ))
+          ? [...Array(9)].map((_, index) => <LoadingCardComponent
+            key={index}
+          />)
           : faculty_details_with_ratings.map((faculty) => (
-              <Link
+            <Link
+              key={faculty.id}
+              href={{
+                pathname: `/faculty/${faculty.id}`,
+                query: {
+                  ...faculty,
+                  partition_number: pageIndex,
+                },
+              }}
+            >
+              <FacultyCard
                 key={faculty.id}
-                href={{
-                  pathname: `/faculty/${faculty.id}`,
-                  query: {
-                    ...faculty,
-                    partition_number: pageIndex,
-                  },
-                }}
-              >
-                <FacultyCard
-                  key={faculty.id}
-                  faculty={{ ...faculty, partition_number: pageIndex }}
-                />
-              </Link>
-            ))}
+                faculty={{ ...faculty, partition_number: pageIndex }}
+              />
+            </Link>
+          ))}
       </div>
       {/* Next and previous buttons */}
       <div className="flex flex-row justify-center gap-8 mt-10">
@@ -140,10 +140,8 @@ function FacultyFilterSearchBar({ className = "" }) {
         onChange={filterSearchData}
       />
       <div
-        className={
-          "absolute w-full top-[100%] mt-1 " +
-          (filteredData.length > 0 ? " " : "collapse")
-        }
+        className={"absolute w-full top-[100%] mt-1 " +
+          (filteredData.length > 0 ? " " : "collapse")}
       >
         <div className="max-w-md mx-auto lg:mr-0 lg:ml-auto z-10 h-40 rounded-lg overflow-y-scroll overflow-x-hidden bg-slate-600">
           {filteredData.map((faculty) => (

@@ -61,7 +61,6 @@ export async function writeFacultyRating(
   previousRating: FacultyRatingWithoutId,
   newRating: FacultyRatingWithoutId
 ) {
-  console.log("Rating the faculty");
   // count if a user had been added or removed from the rating
   const countUsers: FacultyRatingCount = {
     num_teaching_ratings: getNumCount(
@@ -107,7 +106,6 @@ export async function writeFacultyRating(
     facultyPartition.toString()
   );
   const ratingsDocRef = doc(db, "ratings", ratingDocId);
-  console.log(ratingDocId);
 
   await runTransaction(db, async (transaction) => {
     transaction.update(

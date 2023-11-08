@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-
-const maxWidthRatingLine = 50;
+import { FiveStarRating } from "./five_star_tray";
 
 export default function FacultyCard(props: {
   faculty: FacultyData & { partition_number: number };
@@ -9,93 +8,83 @@ export default function FacultyCard(props: {
   const faculty = props.faculty;
 
   return (
-    <>
+    <div className="rounded-lg shadow-lg bg-slate-800 h-full">
       {/* <div className="flex flex-row rounded-lg shadow-lg bg-white"> */}
-      <div className="flex flex-row rounded-lg shadow-lg bg-slate-800">
+      <div className="flex flex-row p-1 ">
         <div className="w-1/3">
           <Image
             src={faculty.image_url}
             alt={faculty.name}
-            width={200}
-            height={200}
-            className="rounded-l-lg"
+            width={150}
+            height={150}
+            className="rounded-lg h-[150px] w-[150px]"
           />
         </div>
         <div className="w-2/3 p-4 flex flex-col">
           <FacultyDetials faculty={faculty} />
         </div>
       </div>
-    </>
+
+      <div className="grid grid-cols-2 p-2">
+        <div>
+          <div>
+            Attendance
+          </div>
+          <div>
+            Correction
+          </div>
+          <div>
+            Teaching
+          </div>
+        </div>
+        <div>
+          {createRatingStarTray(
+            faculty.attendance_rating,
+            faculty.num_attendance_ratings,
+            "text-red-500",
+          )}
+          {createRatingStarTray(
+            faculty.correction_rating,
+            faculty.num_correction_ratings,
+            "text-blue-500",
+          )}
+          {createRatingStarTray(
+            faculty.teaching_rating,
+            faculty.num_teaching_ratings,
+            "text-green-500",
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
-function FacultyDetials(props: { faculty: Faculty & FacultyRating }) {
+const createRatingStarTray = (
+  rating: number | undefined | null,
+  num_rated: number | undefined | null,
+  color: string,
+) => {
+  if (rating) {
+    return (
+      <div className="flex flex-row gap-1 items-center">
+        <FiveStarRating rating={rating} starColor={color} />
+        <p className="text-gray-400 text-sm">{num_rated}</p>
+      </div>
+    );
+  }
+};
+
+function FacultyDetials(props: { faculty: FacultyData }) {
   const faculty = props.faculty;
-
-  const getLineWidth = (rating: number | undefined | null) => {
-    const maxRating = 5;
-    if (rating) {
-      return (rating / maxRating) * maxWidthRatingLine;
-    }
-    return 0;
-  };
-
-  const teachingLineWidth = getLineWidth(faculty.teaching_rating);
-  const attendanceLineWidth = getLineWidth(faculty.attendance_rating);
-  const correctionLineWidth = getLineWidth(faculty.correction_rating);
 
   return (
     <>
-      <div className="flex-grow">
+      <div className="">
         <h1 className="text-xl font-bold">{faculty.name}</h1>
-        <p className="text-gray-500 text-sm overflow-ellipsis overflow-hidden h-10">
+        <p className="text-gray-500 text-sm h-[80px] overflow-ellipsis overflow-hidden">
           {faculty.specialization}
         </p>
       </div>
-      <div className="flex flex-row rounded-lg">
-        <RatingLine
-          color="red"
-          width={teachingLineWidth}
-          borderRadiusTWStyle={
-            "rounded-tl-lg rounded-bl-lg" +
-            (correctionLineWidth === 0 && attendanceLineWidth == 0
-              ? "rounded-tr-lg rounded-br-lg"
-              : "")
-          }
-        />
-        <RatingLine
-          color="blue"
-          width={attendanceLineWidth}
-          borderRadiusTWStyle={
-            (teachingLineWidth === 0 ? "rounded-tl-lg rounded-bl-lg" : " ") +
-            (correctionLineWidth === 0 ? "rounded-tr-lg rounded-br-lg" : "")
-          }
-        />
-        <RatingLine
-          color="green"
-          width={getLineWidth(faculty.correction_rating)}
-          borderRadiusTWStyle={
-            "rounded-tr-lg rounded-br-lg" +
-            (teachingLineWidth === 0 && attendanceLineWidth == 0
-              ? "rounded-tl-lg rounded-bl-lg"
-              : "")
-          }
-        />
-      </div>
     </>
-  );
-}
-
-// create a component for the line with three colors
-function RatingLine(props: {
-  color: string;
-  width: number;
-  borderRadiusTWStyle?: string;
-}) {
-  return (
-    <div
-      className={`bg-${props.color}-500 h-2 ${props.borderRadiusTWStyle}`}
-      style={{ width: `${props.width}px` }}
-    ></div>
   );
 }
