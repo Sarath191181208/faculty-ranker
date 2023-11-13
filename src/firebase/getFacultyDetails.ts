@@ -31,8 +31,8 @@ export const getFacultyDetails = async (
   // sort these faculty data based on name
   facultyData.sort((a, b) => {
     // remove Dr., dr. Dr dr DR dR prefixes and spaces from name
-    const nameA = a.name.replace(/Dr\.?/gi, "").replace(/\s/g, "");
-    const nameB = b.name.replace(/Dr\.?/gi, "").replace(/\s/g, "");
+    const nameA = a?.name?.replace(/Dr\.?/gi, "")?.replace(/\s/g, "");
+    const nameB = b?.name?.replace(/Dr\.?/gi, "")?.replace(/\s/g, "");
 
     if (nameA < nameB) return -1;
     else if (nameA > nameB) return 1;
