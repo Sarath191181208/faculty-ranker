@@ -1,6 +1,5 @@
-import Link from "next/link";
-import Image from "next/image";
 import { FiveStarRating } from "./five_star_tray";
+import FallbackImage from "./FallbackImage";
 
 export default function FacultyCard(props: {
   faculty: FacultyData & { partition_number: number };
@@ -12,7 +11,7 @@ export default function FacultyCard(props: {
       {/* <div className="flex flex-row rounded-lg shadow-lg bg-white"> */}
       <div className="flex flex-row p-1 ">
         <div className="w-1/3">
-          <Image
+          <FallbackImage
             src={faculty.image_url}
             alt={faculty.name}
             width={150}
