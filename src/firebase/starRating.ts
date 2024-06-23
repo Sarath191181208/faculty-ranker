@@ -102,7 +102,8 @@ export async function writeFacultyRating(
 
   const facultyDocRef = doc(
     db,
-    "partitioned_faculty",
+    // "partitioned_faculty",
+    "partition_faculty_2",
     facultyPartition.toString()
   );
   const ratingsDocRef = doc(db, "ratings", ratingDocId);

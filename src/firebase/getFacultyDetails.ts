@@ -7,7 +7,7 @@ import { db } from "@/firebase/firebase";
 export const getFacultyDetails = async (
   start: number
 ): Promise<FacultyData[]> => {
-  const docRef = doc(db, "partitioned_faculty", start.toString());
+  const docRef = doc(db, "partition_faculty_2", start.toString());
   const docSnap = (await getDoc(docRef));
   if (!docSnap.exists()) {
     console.log("No such document!");
