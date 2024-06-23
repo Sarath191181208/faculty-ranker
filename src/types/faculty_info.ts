@@ -4,7 +4,7 @@ interface Faculty {
   id: string;
   name: string;
   image_url: string;
-  specialization: string;
+  specialization: string | null;
 }
 
 interface FacultyRating{
