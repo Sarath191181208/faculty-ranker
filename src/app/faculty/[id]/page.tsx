@@ -12,6 +12,7 @@ import Image from "next/image";
 import BsChevronLeft from "../leftIcon";
 import AiOutlineQuestionCircle from "../questionIcon";
 import { getFacultyDetails } from "@/firebase/getFacultyDetails";
+import { RatingSquare } from "@/components/RatingSquare";
 
 
 export default function SingleFacultyPage({
@@ -125,163 +126,170 @@ export default function SingleFacultyPage({
         </h1>
       </div>
 
-      <div className="flex flex-col mt-5 items-center gap-5 ">
-        <Image src={image_url} alt={name} width={150} height={150} className="rounded-lg" />
-        <p className="text-gray-500 text-sm overflow-ellipsis max-w-xs">
-          {specialization}
-        </p>
-        {/* show the stars and label beside them */}
-        <div className="flex flex-row gap-8 flex-wrap">
-          <RatingSquare value={attendance_rating ?? 0} label="Attendance" style="bg-red-500 border-red-500" />
-          <RatingSquare value={correction_rating ?? 0} label="Correction" style="bg-blue-400 border-blue-400" />
-          <RatingSquare value={teaching_rating ?? 0} label="Teaching" style="bg-teal-500 border-teal-500" />
+      <div className="mt-5 gap-5">
+        <div className="flex flex-col items-center gap-5 lg:flex-row lg:flex-wrap">
+          <Image src={image_url} alt={name} width={150} height={150} className="rounded-lg" />
+          <div className="flex flex-col items-center gap-5">
+            <p className="text-gray-500 text-sm overflow-ellipsis max-w-xs">
+              {specialization}
+            </p>
+            {/* show the stars and label beside them */}
+            <div className="flex flex-row gap-8 flex-wrap justify-around">
+              <RatingSquare rating={attendance_rating ?? 0} label="Attendance" style="text-rose-500" />
+              <RatingSquare rating={correction_rating ?? 0} label="Correction" style="text-sky-500" />
+              <RatingSquare rating={teaching_rating ?? 0} label="Teaching" style="text-teal-500" />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className=" max-w-xs mt-5">
-        <h2 className="text-xl mb-2">Rate the faculty: </h2>
-        <div className="pl-5">
-          <div className="flex flex-row gap-8">
-            <div className="flex flex-col">
-              <div className="flex flex-row items-center">
-                <label htmlFor="attendance_rating">Attendance Rating </label>
-                <div
-                  className="ml-1"
-                  title="How lenient the professor is when considering attendance, i.e more stars correspond to more leniency"
-                >
-                  <AiOutlineQuestionCircle />
+        <div className=" max-w-md mt-5">
+          <h2 className="text-xl mb-2">Rate the faculty: </h2>
+          <div className="pl-5">
+            <div className="flex flex-row gap-8">
+              <div className="flex flex-col">
+                <div className="flex flex-row items-center">
+                  <label htmlFor="attendance_rating">Attendance Rating </label>
+                  <div
+                    className="ml-1"
+                    title="How lenient the professor is when considering attendance, i.e more stars correspond to more leniency"
+                  >
+                    <AiOutlineQuestionCircle />
+                  </div>
+                </div>
+
+                <div className="text-xs text-gray-500">
+                  {givenRatings.attendance_rating
+                    ? ratingLables.attendance_rating[
+                    givenRatings.attendance_rating - 1
+                    ]
+                    : "Amount of lieniency in taking attendance"}
                 </div>
               </div>
 
-              <div className="text-xs text-gray-500">
-                {givenRatings.attendance_rating
-                  ? ratingLables.attendance_rating[
-                  givenRatings.attendance_rating - 1
-                  ]
-                  : "Amount of lieniency in taking attendance"}
-              </div>
+              <FiveStarRating
+                className="ml-auto"
+                rating={givenRatings.attendance_rating ?? 0}
+                starColor="text-rose-500"
+                handleStarClick={(clickedStar) => {
+                  setGivenRatings((prev) => ({
+                    ...prev,
+                    attendance_rating: clickedStar,
+                  }));
+                }}
+              />
             </div>
 
-            <FiveStarRating
-              className="ml-auto"
-              rating={givenRatings.attendance_rating ?? 0}
-              handleStarClick={(clickedStar) => {
-                setGivenRatings((prev) => ({
-                  ...prev,
-                  attendance_rating: clickedStar,
-                }));
-              }}
-            />
-          </div>
-
-          <div className="flex flex-row gap-8 ">
-            <div className="flex flex-col">
-              <div className="flex flex-row items-center">
-                <label htmlFor="correction_rating">Correction Rating </label>
-                <div
-                  className="ml-1"
-                  title="How lenient the professor is when correcting, i.e more stars correspond to more leniency"
-                >
-                  <AiOutlineQuestionCircle />
+            <div className="flex flex-row gap-8 ">
+              <div className="flex flex-col">
+                <div className="flex flex-row items-center">
+                  <label htmlFor="correction_rating">Correction Rating </label>
+                  <div
+                    className="ml-1"
+                    title="How lenient the professor is when correcting, i.e more stars correspond to more leniency"
+                  >
+                    <AiOutlineQuestionCircle />
+                  </div>
+                </div>
+                <div className="text-xs text-gray-500">
+                  {givenRatings.correction_rating
+                    ? ratingLables.correction_rating[
+                    givenRatings.correction_rating - 1
+                    ]
+                    : "Amount of lieniency in correction"}
                 </div>
               </div>
-              <div className="text-xs text-gray-500">
-                {givenRatings.correction_rating
-                  ? ratingLables.correction_rating[
-                  givenRatings.correction_rating - 1
-                  ]
-                  : "Amount of lieniency in correction"}
-              </div>
+              <FiveStarRating
+                className="ml-auto"
+                starColor="text-sky-500"
+                rating={givenRatings.correction_rating ?? 0}
+                handleStarClick={(clickedStar) => {
+                  setGivenRatings((prev) => ({
+                    ...prev,
+                    correction_rating: clickedStar,
+                  }));
+                }}
+              />
             </div>
-            <FiveStarRating
-              className="ml-auto"
-              rating={givenRatings.correction_rating ?? 0}
-              handleStarClick={(clickedStar) => {
-                setGivenRatings((prev) => ({
-                  ...prev,
-                  correction_rating: clickedStar,
-                }));
-              }}
-            />
-          </div>
 
-          <div className="flex flex-row gap-8 ">
-            <div className="flex flex-col">
-              <div className="flex flex-row items-center">
-                <label htmlFor="teaching_rating">Teaching Rating </label>
-                <div
-                  className="ml-1"
-                  title="How good the professor is at teaching, i.e more stars correspond to better teaching"
-                >
-                  <AiOutlineQuestionCircle />
+            <div className="flex flex-row gap-8 ">
+              <div className="flex flex-col">
+                <div className="flex flex-row items-center">
+                  <label htmlFor="teaching_rating">Teaching Rating </label>
+                  <div
+                    className="ml-1"
+                    title="How good the professor is at teaching, i.e more stars correspond to better teaching"
+                  >
+                    <AiOutlineQuestionCircle />
+                  </div>
+                </div>
+                <div className="text-xs text-gray-500">
+                  {givenRatings.teaching_rating
+                    ? ratingLables.teaching_rating[
+                    givenRatings.teaching_rating - 1
+                    ]
+                    : "Experience in teaching"}
                 </div>
               </div>
-              <div className="text-xs text-gray-500">
-                {givenRatings.teaching_rating
-                  ? ratingLables.teaching_rating[
-                  givenRatings.teaching_rating - 1
-                  ]
-                  : "Experience in teaching"}
-              </div>
+              <FiveStarRating
+                className="ml-auto"
+                starColor="text-teal-500"
+                rating={givenRatings.teaching_rating ?? 0}
+                handleStarClick={(clickedStar) => {
+                  setGivenRatings((prev) => ({
+                    ...prev,
+                    teaching_rating: clickedStar,
+                  }));
+                }}
+              />
             </div>
-            <FiveStarRating
-              className="ml-auto"
-              rating={givenRatings.teaching_rating ?? 0}
-              handleStarClick={(clickedStar) => {
-                setGivenRatings((prev) => ({
-                  ...prev,
-                  teaching_rating: clickedStar,
-                }));
-              }}
-            />
-          </div>
 
-          <button
-            disabled={isWritingData}
-            className="btn btn-primary bg-slate-50 hover:bg-slate-100 text-black p-2 rounded-md mt-4 mb-8"
-            onClick={async () => {
-              setIsWritingData(true);
+            <button
+              disabled={isWritingData}
+              className="btn btn-primary bg-slate-50 hover:bg-slate-100 text-black p-2 rounded-md mt-4 mb-8"
+              onClick={async () => {
+                setIsWritingData(true);
 
-              if (user == null) {
+                if (user == null) {
+                  try {
+                    await signInWithGoogle();
+                  } catch (error) {
+                    const err: Error = error as Error;
+                    console.error(err);
+                    alert("You must sign in to rate");
+                    return;
+                  }
+                }
+                const queryString = `${user.uid}-${partitionNumber}-${params.id}`;
                 try {
-                  await signInWithGoogle();
+                  await writeFacultyRating(
+                    partitionNumber,
+                    params.id,
+                    queryString,
+                    previousRatings,
+                    givenRatings
+                  );
+                  setPreviousRatings({ ...givenRatings });
                 } catch (error) {
-                  const err: Error = error as Error;
-                  console.error(err);
-                  alert("You must sign in to rate");
-                  return;
+                  const err = error as Error & { code: string };
+                  if (err.code === "permission-denied") {
+                    const alertString =
+                      user == null
+                        ? "You need to sign in to rate"
+                        : "You must sign in through your college email to rate";
+                    alert(alertString);
+                  }
+                } finally {
+                  setIsWritingData(false);
                 }
-              }
-              const queryString = `${user.uid}-${partitionNumber}-${params.id}`;
-              try {
-                await writeFacultyRating(
-                  partitionNumber,
-                  params.id,
-                  queryString,
-                  previousRatings,
-                  givenRatings
-                );
-                setPreviousRatings({ ...givenRatings });
-              } catch (error) {
-                const err = error as Error & { code: string };
-                if (err.code === "permission-denied") {
-                  const alertString =
-                    user == null
-                      ? "You need to sign in to rate"
-                      : "You must sign in through your college email to rate";
-                  alert(alertString);
-                }
-              } finally {
-                setIsWritingData(false);
-              }
-            }}
-          >
-            {isWritingData ? (
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
-            ) : (
-              isDataAlreadyWritten ? "Update" : "Submit"
-            )}
-          </button>
+              }}
+            >
+              {isWritingData ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
+              ) : (
+                isDataAlreadyWritten ? "Update" : "Submit"
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -356,12 +364,3 @@ const ratingLables = {
 
   teaching_rating: ["Very bad", "Bad", "Average", "Good", "Very good"],
 };
-
-function RatingSquare({ value, label, style = "" }: { value: number, label: string, style: string }) {
-  return (
-    <div className={`flex flex-col items-center ${style} p-4 rounded-md bg-opacity-20 border-2`}>
-      <div className="text-3xl">{value} </div>
-      <div className="text-xs">{label}</div>
-    </div>
-  )
-}
