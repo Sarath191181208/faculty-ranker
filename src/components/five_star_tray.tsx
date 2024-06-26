@@ -17,7 +17,7 @@ export const FiveStarRating: FC<FiveStarRatingProps> = (
 
   const starColor = propsStarColor ?? "text-yellow-500";
   return (
-    <div className={className ?? "flex flex-row"}>
+    <div className={className ?? ""}>
       {[1, 2, 3, 4, 5].map((star) => (
         <span
           key={star}
