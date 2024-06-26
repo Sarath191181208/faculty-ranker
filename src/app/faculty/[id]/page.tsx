@@ -145,7 +145,7 @@ export default function SingleFacultyPage({
         <div className=" max-w-md mt-5">
           <h2 className="text-xl mb-2">Rate the faculty: </h2>
           <div className="pl-5">
-            <div className="flex flex-row gap-8">
+            <div className="flex flex-row gap-y-8">
               <div className="flex flex-col">
                 <div className="flex flex-row items-center">
                   <label htmlFor="attendance_rating">Attendance Rating </label>
