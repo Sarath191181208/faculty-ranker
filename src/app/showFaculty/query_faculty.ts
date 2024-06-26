@@ -2331,13 +2331,6 @@ export const queryFacultyData: FacultyQueryData[] = [
         "id": "Dr. Prabha Selvaraj"
     },
     {
-        "name": "Dr. P. Kuppusamy",
-        "specialization": "Machine Learning, Deep Learning, IoT",
-        "image_url": "https://vitap-backend.s3.ap-south-1.amazonaws.com/32_Kuppusamy_b96f2b500b.avif",
-        "partition_number": 23,
-        "id": "Dr. P. Kuppusamy"
-    },
-    {
         "name": "Dr. Dasari Venkata Lakshmi",
         "specialization": "Computing Models , Artificial Intelligence, Machine Learning, Natural Language Processing, Data Analytics.",
         "image_url": "https://vitap-backend.s3.ap-south-1.amazonaws.com/39_70308_Dr_D_Venkata_Lakshmi_1a6f082d32.avif",

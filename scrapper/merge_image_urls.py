@@ -188,13 +188,25 @@ def merge_new_data():
         for key in rm_dict[partion_num]:
             del fac_data[partion_num][key]
 
+    # get all the previous inserted faculty 
+    inserted_faculty = set() 
+    for partion_num in fac_data.keys():
+        for key in fac_data[partion_num].keys():
+            if "name" in fac_data[partion_num][key]:
+                inserted_faculty.add(fac_data[partion_num][key]["name"])
+
     partion_num = 19
+    fac_data[partion_num] = dict()
     # put every 10 faculty in a partion
     for i, key in enumerate(updated_fac_data.keys()):
+        print(key)
+        if key in inserted_faculty:
+            continue
         if i % 10 == 0:
             partion_num += 1
             fac_data[partion_num] = dict()
         fac_data[partion_num][key] = get_data(updated_fac_data[key])
+        inserted_faculty.add(key)
 
 
     save_json(fac_data, "data/fac-4.json")
