@@ -109,6 +109,65 @@ export default function SingleFacultyPage({
       fetchFacultyDetails();
   }, [user]);
 
+  const attdRatingTxt = <div className="flex flex-col">
+    <div className="flex flex-row items-center">
+      <label htmlFor="attendance_rating">Attendance Rating </label>
+      <div
+        className="ml-1"
+        title="How lenient the professor is when considering attendance, i.e more stars correspond to more leniency"
+      >
+        <AiOutlineQuestionCircle />
+      </div>
+    </div>
+
+    <div className="text-xs text-gray-500">
+      {givenRatings.attendance_rating
+        ? ratingLables.attendance_rating[
+        givenRatings.attendance_rating - 1
+        ]
+        : "Amount of lieniency in taking attendance"}
+    </div>
+  </div>;
+
+  const correctionRatingTxt = <div className="flex flex-col">
+    <div className="flex flex-row items-center">
+      <label htmlFor="correction_rating">Correction Rating </label>
+      <div
+        className="ml-1"
+        title="How lenient the professor is when correcting, i.e more stars correspond to more leniency"
+      >
+        <AiOutlineQuestionCircle />
+      </div>
+    </div>
+    <div className="text-xs text-gray-500">
+      {givenRatings.correction_rating
+        ? ratingLables.correction_rating[
+        givenRatings.correction_rating - 1
+        ]
+        : "Amount of lieniency in correction"}
+    </div>
+  </div>;
+
+  const teachingRatingTxt = <div className="flex flex-col">
+    <div className="flex flex-row items-center">
+      <label htmlFor="teaching_rating">Teaching Rating </label>
+      <div
+        className="ml-1"
+        title="How good the professor is at teaching, i.e more stars correspond to better teaching"
+      >
+        <AiOutlineQuestionCircle />
+      </div>
+    </div>
+    <div className="text-xs text-gray-500">
+      {givenRatings.teaching_rating
+        ? ratingLables.teaching_rating[
+        givenRatings.teaching_rating - 1
+        ]
+        : "Experience in teaching"}
+    </div>
+  </div>;
+
+
   return (
     <div className="p-1">
       <div className="flex">
@@ -142,33 +201,14 @@ export default function SingleFacultyPage({
           </div>
         </div>
 
-        <div className=" max-w-md mt-5">
+        <div className="max-w-md mt-5">
           <h2 className="text-xl mb-2">Rate the faculty: </h2>
           <div className="pl-5">
-            <div className="flex flex-row gap-y-8">
-              <div className="flex flex-col">
-                <div className="flex flex-row items-center">
-                  <label htmlFor="attendance_rating">Attendance Rating </label>
-                  <div
-                    className="ml-1"
-                    title="How lenient the professor is when considering attendance, i.e more stars correspond to more leniency"
-                  >
-                    <AiOutlineQuestionCircle />
-                  </div>
-                </div>
-
-                <div className="text-xs text-gray-500">
-                  {givenRatings.attendance_rating
-                    ? ratingLables.attendance_rating[
-                    givenRatings.attendance_rating - 1
-                    ]
-                    : "Amount of lieniency in taking attendance"}
-                </div>
-              </div>
-
+            <div className="flex flex-col mb-4 md:flex-row md:mb-0 md:gap-8">
+              {attdRatingTxt}
               <FiveStarRating
-                className="ml-auto"
                 rating={givenRatings.attendance_rating ?? 0}
+                className="md:ml-auto"
                 starColor="text-rose-500"
                 handleStarClick={(clickedStar) => {
                   setGivenRatings((prev) => ({
@@ -179,27 +219,10 @@ export default function SingleFacultyPage({
               />
             </div>
 
-            <div className="flex flex-row gap-8 ">
-              <div className="flex flex-col">
-                <div className="flex flex-row items-center">
-                  <label htmlFor="correction_rating">Correction Rating </label>
-                  <div
-                    className="ml-1"
-                    title="How lenient the professor is when correcting, i.e more stars correspond to more leniency"
-                  >
-                    <AiOutlineQuestionCircle />
-                  </div>
-                </div>
-                <div className="text-xs text-gray-500">
-                  {givenRatings.correction_rating
-                    ? ratingLables.correction_rating[
-                    givenRatings.correction_rating - 1
-                    ]
-                    : "Amount of lieniency in correction"}
-                </div>
-              </div>
+            <div className="flex flex-col mb-4 md:flex-row md:mb-0 md:gap-8">
+              {correctionRatingTxt}
               <FiveStarRating
-                className="ml-auto"
+                className="md:ml-auto"
                 starColor="text-sky-500"
                 rating={givenRatings.correction_rating ?? 0}
                 handleStarClick={(clickedStar) => {
@@ -211,28 +234,11 @@ export default function SingleFacultyPage({
               />
             </div>
 
-            <div className="flex flex-row gap-8 ">
-              <div className="flex flex-col">
-                <div className="flex flex-row items-center">
-                  <label htmlFor="teaching_rating">Teaching Rating </label>
-                  <div
-                    className="ml-1"
-                    title="How good the professor is at teaching, i.e more stars correspond to better teaching"
-                  >
-                    <AiOutlineQuestionCircle />
-                  </div>
-                </div>
-                <div className="text-xs text-gray-500">
-                  {givenRatings.teaching_rating
-                    ? ratingLables.teaching_rating[
-                    givenRatings.teaching_rating - 1
-                    ]
-                    : "Experience in teaching"}
-                </div>
-              </div>
+            <div className="flex flex-col mb-4 md:flex-row md:mb-0 md:gap-8">
+              {teachingRatingTxt}
               <FiveStarRating
-                className="ml-auto"
                 starColor="text-teal-500"
+                className="md:ml-auto"
                 rating={givenRatings.teaching_rating ?? 0}
                 handleStarClick={(clickedStar) => {
                   setGivenRatings((prev) => ({
