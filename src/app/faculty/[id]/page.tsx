@@ -147,7 +147,7 @@ export default function SingleFacultyPage({
 
   useEffect(() => {
     const fetchFacultyDetails = async () => {
-      if (user == null) return;
+      // if (user == null) return;
       if (
         attendance_rating == null ||
         correction_rating == null ||
