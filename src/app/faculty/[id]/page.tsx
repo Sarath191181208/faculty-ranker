@@ -193,38 +193,21 @@ export default function SingleFacultyPage({
         </h1>
       </div>
 
-      <div className="flex flex-row max-w-xl mt-5">
-        <div className="w-1/3">
-          <Image src={image_url} alt={name} width={100} height={100} />
-        </div>
-        <div className="w-2/3 p-4 flex flex-col">
-          <p className="text-gray-500 text-sm overflow-ellipsis overflow-hidden h-10">
-            {specialization}
-          </p>
-          {/* show the stars and label beside them */}
-          <div className="flex flex-row gap-8 items-center">
-            <label htmlFor="attendance_rating">Attendance Rating</label>
-            <FiveStarRating
-              className="ml-auto"
-              rating={attendance_rating ?? 0}
-            />
-          </div>
-          <div className="flex flex-row gap-8 items-center">
-            <label htmlFor="correction_rating">Correction Rating</label>
-            <FiveStarRating
-              className="ml-auto"
-              rating={correction_rating ?? 0}
-            />
-          </div>
-          <div className="flex flex-row gap-8 items-center">
-            <label htmlFor="teaching_rating">Teaching Rating</label>
-            <FiveStarRating className="ml-auto" rating={teaching_rating ?? 0} />
-          </div>
+      <div className="flex flex-col mt-5 items-center gap-5 ">
+        <Image src={image_url} alt={name} width={150} height={150} className="rounded-lg" />
+        <p className="text-gray-500 text-sm overflow-ellipsis max-w-xs">
+          {specialization}
+        </p>
+        {/* show the stars and label beside them */}
+        <div className="flex flex-row gap-8 flex-wrap">
+          <RatingSquare value={attendance_rating ?? 0} label="Attendance" style="bg-red-500 border-red-500" />
+          <RatingSquare value={correction_rating ?? 0} label="Correction" style="bg-blue-400 border-blue-400" />
+          <RatingSquare value={teaching_rating ?? 0} label="Teaching" style="bg-teal-500 border-teal-500" />
         </div>
       </div>
 
       <div className=" max-w-xs mt-5">
-        <h2 className="text-xl mb-2">Give the Rating</h2>
+        <h2 className="text-xl mb-2">Rate the faculty: </h2>
         <div className="pl-5">
           <div className="flex flex-row gap-8">
             <div className="flex flex-col">
@@ -241,8 +224,8 @@ export default function SingleFacultyPage({
               <div className="text-xs text-gray-500">
                 {givenRatings.attendance_rating
                   ? ratingLables.attendance_rating[
-                      givenRatings.attendance_rating - 1
-                    ]
+                  givenRatings.attendance_rating - 1
+                  ]
                   : "Amount of lieniency in taking attendance"}
               </div>
             </div>
@@ -273,8 +256,8 @@ export default function SingleFacultyPage({
               <div className="text-xs text-gray-500">
                 {givenRatings.correction_rating
                   ? ratingLables.correction_rating[
-                      givenRatings.correction_rating - 1
-                    ]
+                  givenRatings.correction_rating - 1
+                  ]
                   : "Amount of lieniency in correction"}
               </div>
             </div>
@@ -304,8 +287,8 @@ export default function SingleFacultyPage({
               <div className="text-xs text-gray-500">
                 {givenRatings.teaching_rating
                   ? ratingLables.teaching_rating[
-                      givenRatings.teaching_rating - 1
-                    ]
+                  givenRatings.teaching_rating - 1
+                  ]
                   : "Experience in teaching"}
               </div>
             </div>
@@ -371,4 +354,13 @@ export default function SingleFacultyPage({
       </div>
     </div>
   );
+}
+
+function RatingSquare({ value, label, style = "" }: { value: number, label: string, style: string }) {
+  return (
+    <div className={`flex flex-col items-center ${style} p-4 rounded-md bg-opacity-20 border-2`}>
+      <div className="text-3xl">{value} </div>
+      <div className="text-xs">{label}</div>
+    </div>
+  )
 }
