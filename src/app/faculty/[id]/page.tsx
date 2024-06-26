@@ -13,74 +13,6 @@ import BsChevronLeft from "../leftIcon";
 import AiOutlineQuestionCircle from "../questionIcon";
 import { getFacultyDetails } from "@/firebase/getFacultyDetails";
 
-type FacultyDataWithPartitionNumber = FacultyData & { partitionNumber: number };
-
-function parseSearchParams(
-  searchParams: ReadonlyURLSearchParams
-): FacultyDataWithPartitionNumber {
-  const partitionNumber: number = (searchParams.get("partition_number") ??
-    "0") as unknown as number;
-
-  const attendance_rating: number | null = searchParams.get(
-    "attendance_rating"
-  ) as unknown as number | null;
-  const correction_rating: number | null = searchParams.get(
-    "correction_rating"
-  ) as unknown as number | null;
-  const teaching_rating: number | null = searchParams.get(
-    "teaching_rating"
-  ) as unknown as number | null;
-
-  const id = searchParams.get("id");
-  const name = searchParams.get("name") ?? "unknown";
-  const image_url = searchParams.get("image_url") ?? "unknown";
-  const specialization = searchParams.get("specialization") ?? "unknown";
-
-  if (id == null) throw new Error("id is null");
-
-  const num_teaching_ratings: number = (searchParams.get(
-    "num_teaching_ratings"
-  ) ?? "0") as unknown as number;
-  const num_attendance_ratings: number = (searchParams.get(
-    "num_attendance_ratings"
-  ) ?? "0") as unknown as number;
-  const num_correction_ratings: number = (searchParams.get(
-    "num_correction_ratings"
-  ) ?? "0") as unknown as number;
-
-  return {
-    partitionNumber,
-    attendance_rating,
-    correction_rating,
-    teaching_rating,
-    id,
-    name,
-    image_url,
-    specialization,
-    num_teaching_ratings,
-    num_attendance_ratings,
-    num_correction_ratings,
-  };
-}
-
-const ratingLables = {
-  attendance_rating: [
-    "Strict",
-    "Somewhat strict",
-    "Moderate",
-    "Somewhat lenient",
-    "Lenient",
-  ],
-  correction_rating: [
-    "Strict",
-    "Somewhat strict",
-    "Moderate",
-    "Somewhat lenient",
-    "Lenient",
-  ],
-
-  teaching_rating: ["Very bad", "Bad", "Average", "Good", "Very good"],
-};
 
 export default function SingleFacultyPage({
   params,
@@ -355,6 +287,75 @@ export default function SingleFacultyPage({
     </div>
   );
 }
+
+type FacultyDataWithPartitionNumber = FacultyData & { partitionNumber: number };
+
+function parseSearchParams(
+  searchParams: ReadonlyURLSearchParams
+): FacultyDataWithPartitionNumber {
+  const partitionNumber: number = (searchParams.get("partition_number") ??
+    "0") as unknown as number;
+
+  const attendance_rating: number | null = searchParams.get(
+    "attendance_rating"
+  ) as unknown as number | null;
+  const correction_rating: number | null = searchParams.get(
+    "correction_rating"
+  ) as unknown as number | null;
+  const teaching_rating: number | null = searchParams.get(
+    "teaching_rating"
+  ) as unknown as number | null;
+
+  const id = searchParams.get("id");
+  const name = searchParams.get("name") ?? "unknown";
+  const image_url = searchParams.get("image_url") ?? "unknown";
+  const specialization = searchParams.get("specialization") ?? "unknown";
+
+  if (id == null) throw new Error("id is null");
+
+  const num_teaching_ratings: number = (searchParams.get(
+    "num_teaching_ratings"
+  ) ?? "0") as unknown as number;
+  const num_attendance_ratings: number = (searchParams.get(
+    "num_attendance_ratings"
+  ) ?? "0") as unknown as number;
+  const num_correction_ratings: number = (searchParams.get(
+    "num_correction_ratings"
+  ) ?? "0") as unknown as number;
+
+  return {
+    partitionNumber,
+    attendance_rating,
+    correction_rating,
+    teaching_rating,
+    id,
+    name,
+    image_url,
+    specialization,
+    num_teaching_ratings,
+    num_attendance_ratings,
+    num_correction_ratings,
+  };
+}
+
+const ratingLables = {
+  attendance_rating: [
+    "Strict",
+    "Somewhat strict",
+    "Moderate",
+    "Somewhat lenient",
+    "Lenient",
+  ],
+  correction_rating: [
+    "Strict",
+    "Somewhat strict",
+    "Moderate",
+    "Somewhat lenient",
+    "Lenient",
+  ],
+
+  teaching_rating: ["Very bad", "Bad", "Average", "Good", "Very good"],
+};
 
 function RatingSquare({ value, label, style = "" }: { value: number, label: string, style: string }) {
   return (
