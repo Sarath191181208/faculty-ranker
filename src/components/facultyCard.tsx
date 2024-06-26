@@ -40,17 +40,17 @@ export default function FacultyCard(props: {
           {createRatingStarTray(
             faculty.attendance_rating,
             faculty.num_attendance_ratings,
-            "text-red-500",
+            "text-red-400",
           )}
           {createRatingStarTray(
             faculty.correction_rating,
             faculty.num_correction_ratings,
-            "text-blue-500",
+            "text-blue-400",
           )}
           {createRatingStarTray(
             faculty.teaching_rating,
             faculty.num_teaching_ratings,
-            "text-green-500",
+            "text-teal-500",
           )}
         </div>
       </div>
