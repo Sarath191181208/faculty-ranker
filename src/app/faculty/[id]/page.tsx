@@ -38,32 +38,17 @@ export default function SingleFacultyPage({
     signInWithGoogle,
   }: { user: User; signInWithGoogle: () => Promise<void> } = useAuth();
 
-  const [givenRatings, setGivenRatings] = useState<FacultyRatingWithoutId>({
-    attendance_rating: null,
-    correction_rating: null,
-    teaching_rating: null,
-  });
+  const [givenRatings, setGivenRatings] = useState<FacultyRatingWithoutId>(getFacultyRatingWithoutId());
 
   const [previousRatings, setPreviousRatings] =
-    useState<FacultyRatingWithoutId>({
-      attendance_rating: null,
-      correction_rating: null,
-      teaching_rating: null,
-    });
+    useState<FacultyRatingWithoutId>(getFacultyRatingWithoutId());
 
   const [isWritingData, setIsWritingData] = useState(false);
-  const isDataAlreadyWritten =
-    previousRatings.attendance_rating != null ||
-    previousRatings.correction_rating != null ||
-    previousRatings.teaching_rating != null;
+  const isDataAlreadyWritten = isAnyDataPresent(previousRatings);
 
   useEffect(() => {
     if (user == null) return;
-    if (
-      previousRatings.attendance_rating != null ||
-      previousRatings.correction_rating != null ||
-      previousRatings.teaching_rating != null
-    )
+    if (isAnyDataPresent(previousRatings))
       return;
     const queryString = getUserRatingDBKey(user, facultyData.partitionNumber, params.id);
     const ratingRef = doc(db, "ratings", queryString);
@@ -307,6 +292,18 @@ export default function SingleFacultyPage({
 }
 
 type FacultyDataWithPartitionNumber = FacultyData & { partitionNumber: number };
+
+function getFacultyRatingWithoutId() {
+  return {
+    attendance_rating: null,
+    correction_rating: null,
+    teaching_rating: null,
+  }
+}
+
+function isAnyDataPresent(rating: FacultyRatingWithoutId) {
+  return rating.attendance_rating != null || rating.correction_rating != null || rating.teaching_rating != null;
+}
 
 function getUserRatingDBKey(user: User, partitionNumber: number, id: string) {
   return `${user.uid}-${partitionNumber}-${id}`;
