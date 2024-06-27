@@ -109,6 +109,47 @@ export default function SingleFacultyPage({
       fetchFacultyDetails();
   }, [user]);
 
+  async function submitRating() {
+    setIsWritingData(true);
+
+    console.log(user);
+    if (user == null) {
+      try {
+        await signInWithGoogle();
+      } catch (error) {
+        console.log(error);
+        console.error(error);
+        alert("You must sign in to rate");
+        setIsWritingData(false);
+        return;
+      }
+    }
+    console.log(user);
+    console.log("Got here");
+    const queryString = getUserRatingDBKey(user, partitionNumber, params.id);
+    try {
+      await writeFacultyRating(
+        partitionNumber,
+        params.id,
+        queryString,
+        previousRatings,
+        givenRatings
+      );
+      setPreviousRatings({ ...givenRatings });
+    } catch (error) {
+      const err = error as Error & { code: string };
+      if (err.code === "permission-denied") {
+        const alertString =
+          user == null
+            ? "You need to sign in to rate"
+            : "You must sign in through your college email to rate";
+        alert(alertString);
+      }
+    } finally {
+      setIsWritingData(false);
+    }
+  }
+
   const attdRatingTxt = <div className="flex flex-col">
     <div className="flex flex-row items-center">
       <label htmlFor="attendance_rating">Attendance Rating </label>
@@ -252,42 +293,7 @@ export default function SingleFacultyPage({
             <button
               disabled={isWritingData}
               className="btn btn-primary bg-slate-50 hover:bg-slate-100 text-black p-2 rounded-md mt-4 mb-8"
-              onClick={async () => {
-                setIsWritingData(true);
-
-                if (user == null) {
-                  try {
-                    await signInWithGoogle();
-                  } catch (error) {
-                    const err: Error = error as Error;
-                    console.error(err);
-                    alert("You must sign in to rate");
-                    return;
-                  }
-                }
-                const queryString = getUserRatingDBKey(user, partitionNumber, params.id);
-                try {
-                  await writeFacultyRating(
-                    partitionNumber,
-                    params.id,
-                    queryString,
-                    previousRatings,
-                    givenRatings
-                  );
-                  setPreviousRatings({ ...givenRatings });
-                } catch (error) {
-                  const err = error as Error & { code: string };
-                  if (err.code === "permission-denied") {
-                    const alertString =
-                      user == null
-                        ? "You need to sign in to rate"
-                        : "You must sign in through your college email to rate";
-                    alert(alertString);
-                  }
-                } finally {
-                  setIsWritingData(false);
-                }
-              }}
+              onClick={async () => { submitRating(); setIsWritingData(false); }}
             >
               {isWritingData ? (
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
