@@ -65,7 +65,7 @@ export default function SingleFacultyPage({
       previousRatings.teaching_rating != null
     )
       return;
-    const queryString = `${user.uid}-${facultyData.partitionNumber}-${params.id}`;
+    const queryString = getUserRatingDBKey(user, facultyData.partitionNumber, params.id);
     const ratingRef = doc(db, "ratings", queryString);
     const getRating = async () => {
       const ratingDoc = await getDoc(ratingRef);
@@ -265,7 +265,7 @@ export default function SingleFacultyPage({
                     return;
                   }
                 }
-                const queryString = `${user.uid}-${partitionNumber}-${params.id}`;
+                const queryString = getUserRatingDBKey(user, partitionNumber, params.id);
                 try {
                   await writeFacultyRating(
                     partitionNumber,
