@@ -308,6 +308,10 @@ export default function SingleFacultyPage({
 
 type FacultyDataWithPartitionNumber = FacultyData & { partitionNumber: number };
 
+function getUserRatingDBKey(user: User, partitionNumber: number, id: string) {
+  return `${user.uid}-${partitionNumber}-${id}`;
+}
+
 function parseSearchParams(
   searchParams: ReadonlyURLSearchParams
 ): FacultyDataWithPartitionNumber {
