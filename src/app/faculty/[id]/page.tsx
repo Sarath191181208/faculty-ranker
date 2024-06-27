@@ -80,14 +80,12 @@ export default function SingleFacultyPage({
 
   useEffect(() => {
     const fetchFacultyDetails = async () => {
-      // if (user == null) return;
       if (
         attendance_rating == null ||
         correction_rating == null ||
         teaching_rating == null
       ) {
         const doc = await getFacultyDetails(partitionNumber);
-        // update all the search params
         const faculty = doc.find((faculty) => faculty.id === params.id);
         if (faculty == null) return;
         setFacultyData((prev) => ({
