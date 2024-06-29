@@ -1,11 +1,11 @@
-import { FiveStarRating } from "./five_star_tray";
 import FallbackImage from "./FallbackImage";
+import { CiUser } from "react-icons/ci";
+import { getRakingColor } from "./getRakingColor";
 
 export default function FacultyCard(props: {
   faculty: FacultyData & { partition_number: number };
 }) {
   const faculty = props.faculty;
-
   return (
     <div className="rounded-lg shadow-lg bg-slate-800 h-full">
       {/* <div className="flex flex-row rounded-lg shadow-lg bg-white"> */}
@@ -40,17 +40,17 @@ export default function FacultyCard(props: {
           {createRatingStarTray(
             faculty.attendance_rating,
             faculty.num_attendance_ratings,
-            "text-red-500",
+            getRakingColor(faculty.attendance_rating ?? 0),
           )}
           {createRatingStarTray(
             faculty.correction_rating,
             faculty.num_correction_ratings,
-            "text-blue-500",
+            getRakingColor(faculty.correction_rating ?? 0),
           )}
           {createRatingStarTray(
             faculty.teaching_rating,
             faculty.num_teaching_ratings,
-            "text-green-500",
+            getRakingColor(faculty.teaching_rating ?? 0),
           )}
         </div>
       </div>

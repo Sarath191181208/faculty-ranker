@@ -13,6 +13,7 @@ import BsChevronLeft from "../leftIcon";
 import AiOutlineQuestionCircle from "../questionIcon";
 import { getFacultyDetails } from "@/firebase/getFacultyDetails";
 import { RatingSquare } from "@/components/RatingSquare";
+import { getRakingColor } from "@/components/getRakingColor";
 
 
 export default function SingleFacultyPage({
@@ -218,9 +219,9 @@ export default function SingleFacultyPage({
             </p>
             {/* show the stars and label beside them */}
             <div className="flex flex-row gap-8 flex-wrap justify-around">
-              <RatingSquare rating={attendance_rating ?? 0} label="Attendance" style="text-rose-500" />
-              <RatingSquare rating={correction_rating ?? 0} label="Correction" style="text-sky-500" />
-              <RatingSquare rating={teaching_rating ?? 0} label="Teaching" style="text-teal-500" />
+              <RatingSquare rating={attendance_rating ?? 0} label="Attendance" style={getRakingColor(attendance_rating ?? 0)} />
+              <RatingSquare rating={correction_rating ?? 0} label="Correction" style={getRakingColor(correction_rating ?? 0)}/>
+              <RatingSquare rating={teaching_rating ?? 0} label="Teaching" style={getRakingColor(teaching_rating ?? 0)}/>
             </div>
           </div>
         </div>
@@ -233,7 +234,7 @@ export default function SingleFacultyPage({
               <FiveStarRating
                 rating={givenRatings.attendance_rating ?? 0}
                 className="md:ml-auto"
-                starColor="text-rose-500"
+                starColor={getRakingColor(givenRatings.attendance_rating ?? 0)}
                 handleStarClick={(clickedStar) => {
                   setGivenRatings((prev) => ({
                     ...prev,
@@ -247,7 +248,7 @@ export default function SingleFacultyPage({
               {correctionRatingTxt}
               <FiveStarRating
                 className="md:ml-auto"
-                starColor="text-sky-500"
+                starColor={getRakingColor(givenRatings.correction_rating ?? 0)}
                 rating={givenRatings.correction_rating ?? 0}
                 handleStarClick={(clickedStar) => {
                   setGivenRatings((prev) => ({
@@ -261,7 +262,7 @@ export default function SingleFacultyPage({
             <div className="flex flex-col mb-4 md:flex-row md:mb-0 md:gap-8">
               {teachingRatingTxt}
               <FiveStarRating
-                starColor="text-teal-500"
+                starColor={getRakingColor((givenRatings.teaching_rating ?? 0))}
                 className="md:ml-auto"
                 rating={givenRatings.teaching_rating ?? 0}
                 handleStarClick={(clickedStar) => {
