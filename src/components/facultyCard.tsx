@@ -66,7 +66,21 @@ const createRatingStarTray = (
   if (rating) {
     return (
       <div className="flex flex-row gap-1 items-center">
-        <FiveStarRating rating={rating} starColor={color} />
+        {rating == null
+          ? <p className="text-gray-400 text-sm">No rating</p>
+          : (
+            <p className={`${color} text-md font-bold`}>
+              {rating.toLocaleString("en", {
+                minimumIntegerDigits: 1,
+                minimumFractionDigits: 2,
+                useGrouping: false,
+              })}
+            </p>
+          )}
+
+        <p className="text-gray-400 text-xs">/5</p>
+
+        <CiUser className="text-md ml-auto" />
         <p className="text-gray-400 text-sm">{num_rated}</p>
       </div>
     );
